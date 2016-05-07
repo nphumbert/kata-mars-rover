@@ -9,9 +9,9 @@ class PathTest {
     @Test
     fun should_apply_all_instructions_when_compute_destination() {
         // given
-        val initialPosition = Position(1, 2, Orientation.N)
-        val intermediatePosition = Position(1, 2, Orientation.O)
-        val finalPosition = Position(0, 2, Orientation.O)
+        val initialPosition = Position(1, 2, Orientation.NORTH)
+        val intermediatePosition = Position(1, 2, Orientation.WEST)
+        val finalPosition = Position(0, 2, Orientation.WEST)
 
         val path = Path(asList(FakeInstruction(initialPosition, intermediatePosition), FakeInstruction(intermediatePosition, finalPosition)))
 
