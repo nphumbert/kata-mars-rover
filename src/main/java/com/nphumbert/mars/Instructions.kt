@@ -18,7 +18,7 @@ class MoveForward : Instruction {
 
 class RotateRight : Instruction {
     override fun apply(position: Position): Position {
-        throw UnsupportedOperationException()
+        return Position(position.x, position.y, position.orientation.right())
     }
 }
 

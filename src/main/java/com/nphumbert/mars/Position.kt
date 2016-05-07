@@ -2,9 +2,14 @@ package com.nphumbert.mars
 
 data class Position(val x: Int, val y: Int, val orientation: Orientation)
 
-enum class Orientation(private val left: () -> Orientation) {
-    NORTH({ WEST }), SOUTH({ EAST }), EAST({ NORTH }), WEST({ SOUTH });
+enum class Orientation(private val left: () -> Orientation, private val right: () -> Orientation) {
+    NORTH({ WEST }, { EAST }),
+    SOUTH({ EAST }, { WEST }),
+    EAST({ NORTH }, { SOUTH }),
+    WEST({ SOUTH }, { NORTH });
 
     fun left(): Orientation = left.invoke()
+
+    fun right(): Orientation = right.invoke()
 }
 
