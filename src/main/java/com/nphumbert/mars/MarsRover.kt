@@ -27,10 +27,12 @@ class MarsRover {
         val path = Path(pathInput.toCharArray().map { parseInstruction(it) })
         val finalPosition = path.computeDestination(initialPosition)
 
-        return "${finalPosition.x} ${finalPosition.y} ${finalPosition.orientation}"
+        return "${finalPosition.x} ${finalPosition.y} ${toString(finalPosition.orientation)}"
     }
 
     private fun parseOrientation(input: Char): Orientation = orientations.getOrElse(input, { throw IllegalArgumentException("Unknown instruction $input") })
 
     private fun parseInstruction(input: Char): Instruction = instructions.getOrElse(input, { throw IllegalArgumentException("Unknown instruction $input") })
+
+    private fun toString(orientation: Orientation): String = orientations.filterValues { it.equals(orientation) }.keys.first().toString()
 }
