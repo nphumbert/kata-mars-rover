@@ -7,7 +7,7 @@ class MarsRover {
         val (x, y, orientation) = initialPositionInput.split(" ")
         val initialPosition = Position(x.toInt(), y.toInt(), Orientation.valueOf(orientation))
 
-        val path = Path(pathInput.toCharArray().map { Instruction.valueOf(it.toString()) })
+        val path = Path(pathInput.toCharArray().map { InstructionValue.valueOf(it.toString()) })
         val finalPosition = path.computeDestination(initialPosition)
 
         return "${finalPosition.x} ${finalPosition.y} ${finalPosition.orientation}"
@@ -16,8 +16,11 @@ class MarsRover {
 }
 
 data class Path(val instructions: List<Instruction>) {
+
     fun computeDestination(initialPosition: Position): Position {
-        throw UnsupportedOperationException("not implemented")
+        var currentPosition = initialPosition
+        instructions.forEach { currentPosition = it.apply(currentPosition) }
+        return currentPosition
     }
 
 }
@@ -30,6 +33,14 @@ enum class Orientation {
     N, S, E, O
 }
 
-enum class Instruction {
-    L, R, M
+enum class InstructionValue : Instruction {
+    L, R, M;
+
+    override fun apply(position: Position): Position {
+        throw UnsupportedOperationException("not implemented")
+    }
+}
+
+interface Instruction {
+    fun apply(position: Position): Position
 }
